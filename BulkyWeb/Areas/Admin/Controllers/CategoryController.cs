@@ -2,11 +2,14 @@
 using Bulky.DataAccess.Data;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
+using Bulky.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulkyWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -14,6 +17,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+
         public IActionResult Index()
         {
             List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
